@@ -24,6 +24,13 @@ declare module 'react-froala-wysiwyg' {
     | 'video.beforeRemove' | 'video.beforeUpload' | 'video.codeError' | 'video.hideResizer' | 'video.inserted' | 'video.linkError' | 'video.loaded'
     | 'video.removed' | 'video.replaced' | 'video.uploaded' | 'video.uploadedToS3' | 'window.copy' | 'window.cut';
 
+  export type ImageEditButtonsKey = 'imageReplace' | 'imageAlign' | 'imageCaption' | 'imageRemove' | 'imageLink' | 'linkOpen' | 'linkEdit' | 'linkRemove' | '-'
+    | 'imageDisplay' | 'imageStyle' | 'imageAlt' | 'imageSize';
+
+  export type WordAllowedStylePropsKey = 'font-family' | 'font-size' | 'background' | 'color' | 'width' | 'text-align' | 'vertical-align' | 'background-color' | 'padding'
+    | 'margin' | 'height' | 'margin-top' | 'margin-left' | 'margin-right' | 'margin-bottom' | 'text-decoration' | 'font-weight' | 'font-style' | 'text-indent' | 'border'
+    | 'border-.*';
+
   export interface FroalaEditorConfig {
     apiKey?: string;
     app?: string;
@@ -68,7 +75,7 @@ declare module 'react-froala-wysiwyg' {
     dragInline?: boolean;
     editInPopup?: boolean;
     editor?: object;
-    editorClass?: string;
+    editorClass?: string | null;
     embedlyEditButtons?: string[];
     emoticonsSet?: { code: string; desc: string; }[];
     emoticonsStep?: number;
@@ -90,7 +97,7 @@ declare module 'react-froala-wysiwyg' {
     fileUploadParam?: string;
     fileUploadParams?: object;
     fileUploadToS3?: object;
-    fileUploadURL?: string;
+    fileUploadURL?: string | null;
     fileUseSelectedText?: boolean;
     fontAwesomeSets?: { title: string; list: string[]; }[];
     fontAwesomeTemplate?: string;
@@ -106,9 +113,9 @@ declare module 'react-froala-wysiwyg' {
     formStyles?: object;
     formUpdateButtons: ('inputBack' | '|')[];
     fullPage?: boolean;
-    height?: number;
-    heightMax?: number;
-    heightMin?: number;
+    height?: number | null;
+    heightMax?: number | null;
+    heightMin?: number | null;
     helpSets?: { title: string; commands: { value: string; desc: string; }[] }[];
     htmlAllowComments?: boolean;
     htmlAllowedAttrs?: string[];
@@ -127,15 +134,15 @@ declare module 'react-froala-wysiwyg' {
     iframeStyle?: string;
     iframeStyleFiles?: string[];
     imageAddNewLine?: boolean;
-    imageAllowedTypes?: string[];
+    imageAllowedTypes?: ('jpeg' | 'jpg' | 'png' | 'gif' | 'webp')[];
     imageAltButtons?: ('imageBack' | '|')[];
     imageCORSProxy?: string;
     imageDefaultAlign?: 'left' | 'center' | 'right';
     imageDefaultDisplay?: 'inline' | 'block';
     imageDefaultMargin?: number;
     imageDefaultWidth?: number;
-    imageEditButtons?: string[];
-    imageInsertButtons?: string[];
+    imageEditButtons?: ImageEditButtonsKey[];
+    imageInsertButtons?: ('imageBack' | '|' | 'imageUpload' | 'imageByURL' | 'imageManager')[];
     imageManagerDeleteMethod?: string;
     imageManagerDeleteParams?: object;
     imageManagerDeleteURL?: string;
@@ -143,7 +150,7 @@ declare module 'react-froala-wysiwyg' {
     imageManagerLoadParams?: object;
     imageManagerLoadURL?: string;
     imageManagerPageSize?: number;
-    imageManagerPreloader?: string;
+    imageManagerPreloader?: string | null;
     imageManagerScrollOffset?: number;
     imageManagerToggleTags?: boolean;
     imageMaxSize?: number;
@@ -173,7 +180,7 @@ declare module 'react-froala-wysiwyg' {
     inlineClasses?: object;
     inlineStyles?: object;
     keepFormatOnDelete?: boolean;
-    language?: string;
+    language?: string | null;
     lineBreakerHorizontalOffset?: number;
     lineBreakerOffset?: number;
     lineBreakerTags?: string[];
@@ -225,7 +232,7 @@ declare module 'react-froala-wysiwyg' {
       }
     }[];
     spellcheck?: boolean;
-    tabIndex?: number;
+    tabIndex?: number | null;
     tabSpaces?: number;
     tableCellMultipleStyles?: boolean;
     tableCellStyles?: object;
@@ -245,10 +252,10 @@ declare module 'react-froala-wysiwyg' {
     tableStyles?: object;
     theme?: string | null;
     toolbarBottom?: boolean;
-    toolbarButtons?: object | object[];
-    toolbarButtonsMD?: object | object[];
-    toolbarButtonsSM?: object | object[];
-    toolbarButtonsXS?: object | object[];
+    toolbarButtons?: object | object[] | null;
+    toolbarButtonsMD?: object | object[] | null;
+    toolbarButtonsSM?: object | object[] | null;
+    toolbarButtonsXS?: object | object[] | null;
     toolbarContainer?: boolean;
     toolbarInline?: boolean;
     toolbarSticky?: boolean;
@@ -264,7 +271,7 @@ declare module 'react-froala-wysiwyg' {
     videoDefaultDisplay?: 'inline' | 'block';
     videoDefaultWidth?: number;
     videoEditButtons?: string[];
-    videoInsertButtons?: string[];
+    videoInsertButtons?: ('videoBack' | '|' | 'videoByURL' | 'videoEmbed' | 'videoUpload')[];
     videoMaxSize?: number;
     videoMove?: boolean;
     videoResize?: boolean;
@@ -277,9 +284,9 @@ declare module 'react-froala-wysiwyg' {
     videoUploadParam?: string;
     videoUploadParams?: object;
     videoUploadToS3?: object;
-    videoUploadURL?: string;
-    width?: string;
-    wordAllowedStyleProps?: string[];
+    videoUploadURL?: string | null;
+    width?: string | null;
+    wordAllowedStyleProps?: WordAllowedStylePropsKey[];
     wordDeniedAttrs?: string;
     wordDeniedTags?: string;
     wordPasteKeepFormatting?: boolean;
