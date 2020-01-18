@@ -1,7 +1,7 @@
 declare module 'react-froala-wysiwyg' {
   export interface FroalaEditorProps {
     tag?: string;
-    config?: FroalaEditorConfig;
+    config?: ReactFroalaEditorConfig;
     model?: string | object | null;
     onModelChange?: (model: string) => void;
     onManualControllerReady?: (controls: {
@@ -73,7 +73,12 @@ declare module 'react-froala-wysiwyg' {
     emoticonsSet?: { code: string; desc: string; }[];
     emoticonsStep?: number;
     emoticonsUseImage?: boolean;
-    enter?: '$.FroalaEditor.ENTER_P' | '$.FroalaEditor.ENTER_DIV' | '$.FroalaEditor.ENTER_BR';
+    /** 
+     * FroalaEditor.ENTER_P is 0,
+     * FroalaEditor.ENTER_DIV is 1,
+     * FroalaEditor.ENTER_BR is 2.
+    */
+    enter?: 0 | 1 | 2;
     entities?: string;
     events?: { [K in FroalaEditorEventsType]?: Function };
     faButtons?: string[];
@@ -280,6 +285,11 @@ declare module 'react-froala-wysiwyg' {
     wordPasteKeepFormatting?: boolean;
     wordPasteModal?: boolean;
     zIndex?: number;
+  }
+
+  export interface ReactFroalaEditorConfig extends FroalaEditorConfig {
+    immediateReactModelUpdate: boolean;
+    reactIgnoreAttrs: string[];
   }
 
   export default class FroalaEditor extends React.Component<FroalaEditorProps> { }
