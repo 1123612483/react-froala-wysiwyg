@@ -1,13 +1,30 @@
 declare module 'react-froala-wysiwyg' {
   export interface FroalaEditorProps {
     tag?: string;
-    config?: FroalaeditorConfig;
+    config?: FroalaEditorConfig;
     model?: string | object | null;
-    onModelChange?: object;
-    onManualControllerReady?: object;
+    onModelChange?: (model: string) => void;
+    onManualControllerReady?: (controls: {
+      destroy(): void;
+      getEditor(): any;
+      initialize(): object;
+    }) => void;
   }
 
-  export interface FroalaeditorConfig {
+  export type FroalaEditorEventsType = 'blur' | 'buttons.refresh' | 'charCounter.exceeded' | 'charCounter.update' | 'click' | 'codeView.update' | 'commands.after'
+    | 'commands.before' | 'commands.mousedown' | 'commands.redo' | 'commands.undo' | 'contentChanged' | 'destroy' | 'drop' | 'edit.off' | 'edit.on' | 'element.dropped'
+    | 'embedly.beforeRemove' | 'file.beforeUpload' | 'file.error' | 'file.inserted' | 'file.unlink' | 'file.uploaded' | 'file.uploadedToS3' | 'focus' | 'html.afterGet'
+    | 'html.beforeGet' | 'html.get' | 'html.processGet' | 'html.set' | 'image.beforePasteUpload' | 'image.beforeRemove' | 'image.beforeUpload' | 'image.error'
+    | 'image.hideResizer' | 'image.inserted' | 'image.loaded' | 'image.removed' | 'image.replaced' | 'image.resize' | 'image.resizeEnd' | 'image.uploaded'
+    | 'image.uploadedToS3' | 'imageManager.beforeDeleteImage' | 'imageManager.error' | 'imageManager.imageDeleted' | 'imageManager.imageLoaded' | 'imageManager.imagesLoaded'
+    | 'initializationDelayed' | 'initialized' | 'input' | 'keydown' | 'keypress' | 'keyup' | 'link.bad' | 'link.beforeInsert' | 'link.beforeRemove' | 'mousedown' | 'mouseup'
+    | 'paste.after' | 'paste.afterCleanup' | 'paste.before' | 'paste.beforeCleanup' | 'paste.wordPaste' | 'popups.hide.[id]' | 'popups.show.[id]' | 'position.refresh'
+    | 'quickInsert.commands.after' | 'quickInsert.commands.before' | 'save.after' | 'save.before' | 'save.error' | 'shortcut' | 'snapshot.after' | 'snapshot.before'
+    | 'table.inserted' | 'table.resized' | 'toolbar.esc' | 'toolbar.focusEditor' | 'toolbar.hide' | 'toolbar.show' | 'touchend' | 'touchstart' | 'url.linked'
+    | 'video.beforeRemove' | 'video.beforeUpload' | 'video.codeError' | 'video.hideResizer' | 'video.inserted' | 'video.linkError' | 'video.loaded'
+    | 'video.removed' | 'video.replaced' | 'video.uploaded' | 'video.uploadedToS3' | 'window.copy' | 'window.cut';
+
+  export interface FroalaEditorConfig {
     apiKey?: string;
     app?: string;
     attribution?: boolean;
@@ -58,7 +75,7 @@ declare module 'react-froala-wysiwyg' {
     emoticonsUseImage?: boolean;
     enter?: '$.FroalaEditor.ENTER_P' | '$.FroalaEditor.ENTER_DIV' | '$.FroalaEditor.ENTER_BR';
     entities?: string;
-    events?: object;
+    events?: { [K in FroalaEditorEventsType]?: Function };
     faButtons?: string[];
     fileAllowedTypes?: string[];
     fileInsertButtons?: string[];
@@ -195,12 +212,12 @@ declare module 'react-froala-wysiwyg' {
     shortcutsEnabled?: string[];
     shortcutsHint?: boolean;
     specialCharButtons?: ('specialCharBack' | '|')[];
-    specialCharactersSets?: { 
-      title: string; 
-      list: { 
+    specialCharactersSets?: {
+      title: string;
+      list: {
         char: string;
-        desc: string; 
-      } 
+        desc: string;
+      }
     }[];
     spellcheck?: boolean;
     tabIndex?: number;
@@ -265,12 +282,7 @@ declare module 'react-froala-wysiwyg' {
     zIndex?: number;
   }
 
-  export default class FroalaEditor extends React.Component<FroalaEditorProps> {
-    destroy(): void;
-    getEditor(): any;
-    initialize(): object;
-  }
-
+  export default class FroalaEditor extends React.Component<FroalaEditorProps> { }
 }
 
 declare module 'react-froala-wysiwyg/FroalaEditorView' {
@@ -282,9 +294,7 @@ declare module 'react-froala-wysiwyg/FroalaEditorView' {
     onManualControllerReady?: object;
   }
 
-  export default class FroalaEditorView extends React.Component<MyComponentProps> {
-
-  }
+  export default class FroalaEditorView extends React.Component<MyComponentProps> { }
 }
 
 declare module 'react-froala-wysiwyg/FroalaEditorImg' {
@@ -296,9 +306,7 @@ declare module 'react-froala-wysiwyg/FroalaEditorImg' {
     onManualControllerReady?: object;
   }
 
-  export default class FroalaEditorImg extends React.Component<MyComponentProps> {
-
-  }
+  export default class FroalaEditorImg extends React.Component<MyComponentProps> { }
 }
 
 declare module 'react-froala-wysiwyg/FroalaEditorA' {
@@ -315,6 +323,7 @@ declare module 'react-froala-wysiwyg/FroalaEditorA' {
 
   }
 }
+
 declare module 'react-froala-wysiwyg/FroalaEditorButton' {
   export interface MyComponentProps {
     tag?: string;
