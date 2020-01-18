@@ -54,10 +54,10 @@ declare module 'react-froala-wysiwyg' {
       tabMode: string;
       tabSize: number;
     };
-    codeViewKeepActiveButtons?: string[];
+    codeViewKeepActiveButtons?: ('fullscreen')[];
     codoxOptions?: object;
     colorsBackground?: string[];
-    colorsButtons?: string[];
+    colorsButtons?: ("colorsBack" | "|" | "-")[];
     colorsHEXInput?: boolean;
     colorsStep?: number;
     colorsText?: string[];
